@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Classroom Earthquake Survival</title>
+  <meta name="description" content="Explore a complete school, play basketball, climb the playground and practice earthquake safety." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <div class="topbar">
+      <div class="title">EARTHQUAKE SURVIVAL <span id="locationLabel">CLASSROOM</span></div>
+      <button id="pauseBtn" class="icon-button" aria-label="Pause game" title="Pause game" type="button">⏸️</button>
+      <button id="campusBtn" class="icon-button hidden" aria-label="School directory" title="School directory" type="button">▦</button>
+      <div id="status" class="status">READY</div>
+    </div>
+    <div id="message" class="message"></div>
+    <div id="hint" class="hint"></div>
+    <div class="crosshair"></div>
+    <div id="interaction" class="interaction"></div>
+    <div class="bottombar">|WASD and arrow keys to move | shift to run | Q to throw | left mouse click to move and pickup | C to crouch|</div>
+  </div>
+
+  <!-- Start screen -->
+  <div id="menu" class="overlay">
+    <div class="panel">
+      <h1>EARTHQUAKE SURVIVAL</h1>
+      <h2>EARTHQUAKE DRILLS IN DIFFERENT SENARIOS</h2>
+      <div class="scenario-grid" role="group" aria-label="Select scenario">
+        <button type="button" class="scenario selected" data-scenario="classroom" aria-label="Classroom" aria-pressed="true"><span class="scene-symbol" aria-hidden="true"></span>Classroom</button>
+        <button type="button" class="scenario" data-scenario="gym" aria-label="Gym" aria-pressed="false"><span class="scene-symbol" aria-hidden="true"></span>Gym</button>
+        <button type="button" class="scenario" data-scenario="library" aria-label="Library" aria-pressed="false"><span class="scene-symbol" aria-hidden="true"></span>Library</button>
+        <button type="button" class="scenario" data-scenario="bathroom" aria-label="Bathroom" aria-pressed="false"><span class="scene-symbol" aria-hidden="true"></span>Bathroom</button>
+        <button type="button" class="scenario" data-scenario="recess" aria-label="Recess" aria-pressed="false"><span class="scene-symbol" aria-hidden="true"></span>Recess</button>
+      </div>
+      <p id="scenarioDescription">Tip: stay away form windows</p>
+      <div class="motto">I locked in for this one😤 -Talha</div>
+      <div class="menu-actions"><button id="startBtn" type="button">START DRILL</button><button id="roamBtn" type="button"></button></div>
+      <div class="menu-actions extra-actions"><button id="schoolBtn" type="button">SCHOOL FREE ROAM</button><button id="settingsBtn" class="secondary" type="button">SETTINGS</button></div>
+    </div>
+  </div>
+
+  <!-- Completion screen -->
+  <div id="complete" class="overlay hidden">
+    <div class="panel">
+      <h1>DRILL COMPLETE</h1>
+      <p>You and your classmates Survived btw </p>
+      <div class="motto">My discord is scizzey. the . is in the username</div>
+      <button id="againBtn" type="button">PLAY AGAIN</button>
+      <button id="completeMenuBtn" class="secondary" type="button">MAIN MENU</button>
+    </div>
+  </div>
+
+  <div id="pause" class="overlay hidden">
+    <div class="panel"><h1>PAUSED</h1><p id="pauseLocation">Classroom</p>
+      <div class="stack"><button id="resumeBtn" type="button">RESUME</button><button id="pauseSettingsBtn" class="secondary" type="button">SETTINGS</button><button id="restartBtn" class="secondary" type="button">RESTART DRILL</button><button id="mainMenuBtn" class="secondary" type="button">MAIN MENU</button></div>
+    </div>
+  </div>
+
+  <div id="settings" class="overlay hidden">
+    <div class="panel settings-panel"><h1>SETTINGS</h1>
+      <label class="setting" for="sensitivity">Mouse sensitivity <output id="sensitivityValue">1.0×</output><input id="sensitivity" type="range" min="0.3" max="2.5" step="0.1" value="1"></label>
+      <label class="setting" for="volume">Sound volume <output id="volumeValue">60%</output><input id="volume" type="range" min="0" max="100" step="5" value="60"></label>
+      <label class="setting" for="fov">Field of view <output id="fovValue">72°</output><input id="fov" type="range" min="55" max="95" step="1" value="72"></label>
+      <label class="setting toggle" for="cameraShake">Camera shake <input id="cameraShake" type="checkbox" checked></label>
+      <div class="menu-actions"><button id="settingsBackBtn" type="button">DONE</button><button id="resetSettingsBtn" class="secondary" type="button">RESET</button></div>
+    </div>
+  </div>
+
+  <div id="fatal" class="overlay hidden"><div class="panel"><h1>WebGL unavailable</h1><p>Please open this game in a recent version of Chrome or Edge.</p></div></div>
+
+  <div id="caught" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="caughtTitle">
+    <div class="panel caught-panel"><h1 id="caughtTitle">hah you though you can escape Mr.BOB's earthquake drill well guess what you cant</h1>
+      <div class="menu-actions"><button id="caughtAgainBtn" type="button">TRY AGAIN</button><button id="caughtMenuBtn" class="secondary" type="button">MAIN MENU</button></div>
+    </div>
+  </div>
+  <div id="campusNav" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="campusTitle">
+    <div class="panel directory-panel"><h1 id="campusTitle">SCHOOL ROOMS</h1><div id="destinations" class="destinations"></div><button id="campusCloseBtn" type="button">RESUME</button></div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
